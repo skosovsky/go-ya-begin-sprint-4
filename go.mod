@@ -1,3 +1,3 @@
-module github.com/Yandex-Practicum/go-first-floor-sprint-four
+module github.com/skosovsky/go-ya-begin-sprint-4.git
 
-go 1.20
+go 1.21.6
