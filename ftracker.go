@@ -47,6 +47,14 @@ func swimmingMeanSpeed(lengthPool, countPool int, duration float64) float64 {
 	return float64(lengthPool) * float64(countPool) / mInKm / duration
 }
 
+// message подготавливает и возвращает строку с информацией о тренировке.
+//
+//	trainingType string — вид тренировки (Бег, Ходьба, Плавание).
+//	duration float64 — длительность тренировки в часах.
+func message(trainingType string, duration, distance, speed, calories float64) string {
+	return fmt.Sprintf(msgTmpl, trainingType, duration, distance, speed, calories)
+}
+
 // ShowTrainingInfo возвращает строку с информацией о тренировке.
 //
 //	action int — количество совершенных действий (число шагов при ходьбе и беге, либо гребков при плавании).
@@ -58,17 +66,17 @@ func ShowTrainingInfo(action int, trainingType string, duration, weight, height 
 		distance := distance(action)
 		speed := meanSpeed(action, duration)
 		calories := RunningSpentCalories(action, weight, duration)
-		return fmt.Sprintf(msgTmpl, trainingType, duration, distance, speed, calories)
+		return message(trainingType, duration, distance, speed, calories)
 	case "Ходьба":
 		distance := distance(action)
 		speed := meanSpeed(action, duration)
 		calories := WalkingSpentCalories(action, duration, weight, height)
-		return fmt.Sprintf(msgTmpl, trainingType, duration, distance, speed, calories)
+		return message(trainingType, duration, distance, speed, calories)
 	case "Плавание":
 		distance := distance(action)
 		speed := swimmingMeanSpeed(lengthPool, countPool, duration)
 		calories := SwimmingSpentCalories(lengthPool, countPool, duration, weight)
-		return fmt.Sprintf(msgTmpl, trainingType, duration, distance, speed, calories)
+		return message(trainingType, duration, distance, speed, calories)
 	default:
 		return "неизвестный тип тренировки"
 	}
